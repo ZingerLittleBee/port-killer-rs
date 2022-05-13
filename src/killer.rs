@@ -117,7 +117,7 @@ impl Killer for Unix {
             .args(&pid_str)
             .output()
             .expect("failed to execute process");
-        return Ok(output.status.success());
+        Ok(output.status.success())
     }
 }
 
