@@ -12,11 +12,11 @@ pub fn kill(port: u16) -> Result<bool, Error> {
     };
     let pids = killer
         .get_pid(port)
-        .expect(format!("Failed to get pids on port: {}", port).as_str());
+        .unwrap_or_else(|e| panic!("Failed to get pids on port: {}, error: {}", port, e));
     println!("pids: {:#?}", pids);
     Ok(killer
         .kill(pids)
-        .expect(format!("Failed to kill process on port: {}", port).as_str()))
+        .unwrap_or_else(|e| panic!("Failed to kill process on port: {}, error: {}", port, e)))
 }
 
 pub fn kill_by_pids(pids: &[u32]) -> Result<bool, Error> {
@@ -27,7 +27,7 @@ pub fn kill_by_pids(pids: &[u32]) -> Result<bool, Error> {
     };
     Ok(killer
         .kill(pids.to_vec())
-        .expect(format!("Failed to kill process on pids: {:#?}", pids).as_str()))
+        .unwrap_or_else(|e| panic!("Failed to kill process on pids: {:#?}, Error: {}", pids, e)))
 }
 
 #[cfg(test)]
