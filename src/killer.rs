@@ -155,9 +155,7 @@ mod killer_tests {
         let used_port = random_take_up_port();
         assert!(!is_free(used_port));
         let pids = killer.get_pid(used_port).unwrap();
-        println!("pids: {:#?}", pids);
         let res = killer.kill(pids);
-        println!("res: {:#?}", res);
         assert!(is_free(used_port));
     }
 }

@@ -13,7 +13,6 @@ pub fn kill(port: u16) -> Result<bool, Error> {
     let pids = killer
         .get_pid(port)
         .unwrap_or_else(|e| panic!("Failed to get pids on port: {}, error: {}", port, e));
-    println!("pids: {:#?}", pids);
     Ok(killer
         .kill(pids)
         .unwrap_or_else(|e| panic!("Failed to kill process on port: {}, error: {}", port, e)))
