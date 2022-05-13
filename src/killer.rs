@@ -8,10 +8,10 @@ const LINE_ENDING: &str = "\r\n";
 #[cfg(not(windows))]
 const LINE_ENDING: &str = "\n";
 
-struct Win;
-struct Unix;
+pub struct Win;
+pub struct Unix;
 
-trait Killer {
+pub trait Killer {
     fn get_pid(&self, port: u16) -> Result<Vec<u32>, Error>;
     fn kill(&self, pid: Vec<u32>) -> Result<bool, Error>;
 }
