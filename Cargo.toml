@@ -6,4 +6,4 @@ edition = "2021"
 [dependencies]
 
 [dev-dependencies]
-port-selector = "0.1.4"
+port-selector = "0.1.6"

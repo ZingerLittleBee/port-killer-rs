@@ -1,1 +1,1 @@
-mod killer;
+pub mod killer;
