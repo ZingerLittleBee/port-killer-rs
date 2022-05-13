@@ -4,9 +4,9 @@ use std::{
 };
 
 #[cfg(windows)]
-const LINE_ENDING: &'static str = "\r\n";
+const LINE_ENDING: &str = "\r\n";
 #[cfg(not(windows))]
-const LINE_ENDING: &'static str = "\n";
+const LINE_ENDING: &str = "\n";
 
 struct Win;
 struct Unix;
@@ -33,7 +33,7 @@ impl Killer for Win {
             let res = String::from_utf8(process.stdout).expect("Failed to convert string");
             let mut res_vec: Vec<u32> = res
                 .split(LINE_ENDING)
-                .filter(|s| s.len() > 0)
+                .filter(|s| !s.is_empty())
                 .map(|s| {
                     s.split_whitespace()
                         .last()
@@ -44,7 +44,7 @@ impl Killer for Win {
                 .collect();
             // remove dup values
             if res_vec.len() > 1 {
-                res_vec.sort();
+                res_vec.sort_unstable();
                 res_vec.dedup();
             }
             Ok(res_vec)
@@ -63,7 +63,7 @@ impl Killer for Win {
             .args(&pid_str)
             .output()
             .expect("Failed to execute process");
-        return Ok(output.status.success());
+        Ok(output.status.success())
     }
 }
 
@@ -82,11 +82,12 @@ impl Killer for Unix {
             .stdin(Stdio::piped())
             .stdout(Stdio::piped())
             .spawn()?;
-        let awk_child_stdin = awk_child.stdin.as_mut().unwrap();
-        awk_child_stdin
+        awk_child
+            .stdin
+            .as_mut()
+            .expect("Fail to get awk stdin")
             .write_all(&lsof_stdout[..])
             .expect("Failed to write to awk stdin");
-        drop(awk_child_stdin);
         let awk_output = awk_child
             .wait_with_output()
             .expect("Failed to wait for awk");
@@ -98,7 +99,7 @@ impl Killer for Unix {
                 .collect();
             // remove dup values
             if res_vec.len() > 1 {
-                res_vec.sort();
+                res_vec.sort_unstable();
                 res_vec.dedup();
             }
             Ok(res_vec)
