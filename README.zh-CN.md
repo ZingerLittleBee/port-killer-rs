@@ -11,7 +11,7 @@ Language : [🇺🇸 English](./README.md) | 🇨🇳 简体中文
 <div align="center">
 
 [![Docs](https://img.shields.io/docsrs/port-killer)](https://docs.rs/port-killer/0.1.0/port_killer/)
-[![GitHub Actions CI](https://img.shields.io/github/workflow/status/ZingerLittleBee/port-killer-rs/Test%20CI)](https://github.com/ZingerLittleBee/port-killer-rs/actions)
+[![GitHub Actions Analyze](https://img.shields.io/github/workflow/status/ZingerLittleBee/port-killer-rs/rust-clippy%20analyze)](https://github.com/ZingerLittleBee/port-killer-rs/actions)
 [![LICENSE](https://img.shields.io/crates/l/port-killer)](./LICENSE)
 
 </div>
