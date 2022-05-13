@@ -2,6 +2,13 @@
 name = "port-killer"
 version = "0.1.0"
 edition = "2021"
+categories = ["accessibility"]
+keywords = ["port", "process", "kill"]
+homepage = "https://github.com/ZingerLittleBee/port-killer-rs"
+repository = "https://github.com/ZingerLittleBee/port-killer-rs"
+description = "port-killer is a rust library that provides functions to clear port occupancy and kill processes."
+readme = "README.md"
+license = "MIT"
 
 [dependencies]
 
